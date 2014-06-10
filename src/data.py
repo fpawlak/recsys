@@ -26,3 +26,11 @@ def getBase2():
 # zbior testowy nr 2 (20%)
 def getTest2():
     return getIt('../data/u2.test')
+
+
+def getUsersNo():
+    return 943
+
+def getMoviesNo():
+    return 1682
+    
