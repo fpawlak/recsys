@@ -1,1 +1,13 @@
-dzięki.
+10.05.2014 02:51
+1. W pliku data.py sa funkcje do roznych zestawow danych. Miedzy innymi sa 2 zestawy danych do takich wstepnych testow, ze zbior uczacy to 80% losowo wybranych danych, a testowy to pozostale 20%.
+2. Zrobilem SVD, powinno dzialac ok.
+3. Zrobilem tez male testy svd dla tych danych 80/20 - skutecznosc niewiele ponad 30%, czyli slabo, ale byc moze mozna sie spodziewac lepszych wynikow jak bedzie testowac tak jak ustalilismy - czyli 
+zrobic tyle iteracji ile jest danych (czyli 100k) i zawsze zabierac po jednym wpisie i sprawdzac jak zostanie przewidziany.
+
+
+TODO:
+1. Slope One
+2. Funkcja do testow
+
+3. Polaczenie Slope One z SVD
+4. Poszukanie innych rzeczy
