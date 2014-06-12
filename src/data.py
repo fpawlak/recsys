@@ -5,7 +5,19 @@ import numpy as np
 def getIt(fileName):
     data = np.genfromtxt(fileName, dtype = int)
     return data[:,:3]
+
+def toDataMatrix(dataArray):
+    dataNo = len(dataArray)
     
+    dataMatrix = np.zeros(shape=(getUsersNo(), getMoviesNo()))
+    
+    for i in range(dataNo):
+        row = dataArray[i,0]-1
+        col = dataArray[i,1]-1
+        value = dataArray[i,2]
+        dataMatrix[row, col] = value
+
+    return dataMatrix
 
 # cale dane
 def getAll():
@@ -26,7 +38,6 @@ def getBase2():
 # zbior testowy nr 2 (20%)
 def getTest2():
     return getIt('../data/u2.test')
-
 
 def getUsersNo():
     return 943
