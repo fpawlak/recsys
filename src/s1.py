@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import data as dt
+
 def slopeOne(dataArray):
     dataMatrix = dt.toDataMatrix(dataArray)
     
@@ -18,16 +21,16 @@ def slopeOne(dataArray):
     # dataMatrix[2, 1] = 2
     # dataMatrix[2, 2] = 5    
 
-    allColumns = range(0, moviesNo)
+    columns = range(0, moviesNo)
 
-    for i in range(0, moviesNo):
-        columns = filter(lambda a: a != i, allColumns)
+    for i in columns:
+        otherColumns = filter(lambda a: a != i, columns)
         
         totalDifference = [0] * moviesNo
         avgDifference = [0] * moviesNo
         noOfUsers = [0] * moviesNo
         
-        for j in columns:
+        for j in otherColumns:
             for user in range(0, usersNo):
                 ratingI = dataMatrix[user, i]
                 ratingJ = dataMatrix[user, j]
@@ -44,7 +47,7 @@ def slopeOne(dataArray):
                 numerator = 0
                 denominator = 0
                 
-                for j in columns:
+                for j in otherColumns:
                     ratingJ = dataMatrix[user, j]
                     if ratingJ > 0:
                         numerator += noOfUsers[j] * (ratingJ + avgDifference[j])
@@ -55,4 +58,7 @@ def slopeOne(dataArray):
 
     return dataMatrix
 
+# dane = dt.getTest1()
+# wynik = slopeOne(dane)
+# np.savetxt('wynik.txt', wynik)
             
