@@ -14,7 +14,9 @@ def findNumber(S, level):
             return i
     return size
     
-def getRecommendations(dataMatrix, level = 0.7):
+def getRecommendations(data, level = 0.7):
+
+    dataMatrix = dt.toDataMatrix(data)
     
     #dataArray = dataBase = dt.getIt('../data/u1.base')[:6]
         
