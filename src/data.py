@@ -44,4 +44,15 @@ def getUsersNo():
 
 def getMoviesNo():
     return 1682
-    
+
+# def getUsersNo():
+#     return 6040
+
+# def getMoviesNo():
+#     return 3952
+
+# def getUsersNo():
+#     return 71567
+
+# def getMoviesNo():
+#     return 10681
