@@ -79,6 +79,50 @@ class SlopeOne(object):
         else:
             return 0
 
+    # "Usuwa" ocene z danych i ja przewiduje.
+    def remove_and_predict(self, user, movie):
+        numerator = 0
+        denominator = 0
+        
+        ratings = self.d[user]
+        
+        (rheight, _) = ratings.shape
+
+        for i in range(0, rheight):
+            if ratings[i, 0] == movie:
+                movie_rating = ratings[i, 1]
+                break
+
+        for i in range(0, rheight):
+            from_movie = ratings[i, 0]
+
+            if from_movie == movie:
+                pass
+            
+            rating = ratings[i, 1]
+
+            # diff = ocena(movie) - ocena(from_movie)
+            
+            if movie > from_movie:
+                nOU = self.noOfUsers[from_movie, movie]
+                tD = -self.totalDifference[from_movie, movie]
+            else:
+                nOU = self.noOfUsers[movie, from_movie]
+                tD = self.totalDifference[movie, from_movie]
+
+            nOU -= 1
+            tD -= movie_rating - rating
+
+            diff = tD/float(noU)
+
+            numerator += nOU * (rating + diff)
+            denominator += nOU
+
+        if denominator > 0:
+            return numerator/denominator
+        else:
+            return 0            
+
     def fillMatrix(self, dataMatrix):
         (height, width) = dataMatrix.shape
 
@@ -87,5 +131,12 @@ class SlopeOne(object):
                 if dataMatrix[i, j] == 0:
                     dataMatrix[i, j] = self.predict(i+1, j+1)
 
-# np.savetxt('wynik.txt', wynik)
+# dane = dt.getBase1()
+# s = SlopeOne()
+# s.setData(dane)
+# s.computeDiffs()
+# print "policzylem roznice"
+# dataMatrix = dt.toDataMatrix(dane)
+# s.fillMatrix(dataMatrix)
+# np.savetxt('wynik.txt', dataMatrix)
             
