@@ -17,7 +17,7 @@ def toDataMatrix(dataArray):
 
 def getIt(fileName):
     data = np.genfromtxt(fileName, dtype = int)
-    return toDataMatrix(data[:,:3])
+    return data[:,:3]
     
 # cale dane
 def getAll():
@@ -39,6 +39,9 @@ def getBase2():
 def getTest2():
     return getIt('../data/u2.test')
 
+def getWiki():
+    return getIt('../data/wiki.data')
+    
 def getUsersNo():
     return 943
 
@@ -56,3 +59,9 @@ def getMoviesNo():
 
 # def getMoviesNo():
 #     return 10681
+
+# def getUsersNo():
+#     return 3
+
+# def getMoviesNo():
+#     return 3
