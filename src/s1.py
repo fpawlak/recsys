@@ -3,6 +3,9 @@
 import numpy as np
 import data as dt
 
+# Wymaga, zeby dane byly posortowane (po pierwszej, a nastepnie po drugiej
+# kolumnie).
+
 class SlopeOne(object):
     def __init__(self):
         self.usersNo = dt.getUsersNo()
