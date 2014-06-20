@@ -7,7 +7,7 @@ import data as dt
 dataBase = dt.getBase1()
 dataTest = dt.getTest1()
 
-recs = svd.getReccomendations(dataBase)
+recs = svd.getRecommendations(dataBase)
 
 badScores = 0
 
