@@ -49,10 +49,6 @@ class SlopeOne(object):
                 nOU = self.noOfUsers[i, j]
                 if nOU > 0:
                     self.avgDifference[i, j] = tD/float(nOU)
-            
-
-            
-        
 
     def predict(self, user, movie):
         numerator = 0
@@ -82,6 +78,14 @@ class SlopeOne(object):
             return numerator/denominator
         else:
             return 0
+
+    def fillMatrix(self, dataMatrix):
+        (height, width) = dataMatrix.shape
+
+        for i in range(0, height):
+            for j in range(0, width):
+                if dataMatrix[i, j] == 0:
+                    dataMatrix[i, j] = self.predict(i+1, j+1)
 
 # np.savetxt('wynik.txt', wynik)
             
