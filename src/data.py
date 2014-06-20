@@ -2,10 +2,6 @@
 
 import numpy as np
 
-def getIt(fileName):
-    data = np.genfromtxt(fileName, dtype = int)
-    return data[:,:3]
-
 def toDataMatrix(dataArray):
     dataNo = len(dataArray)
     
@@ -19,6 +15,10 @@ def toDataMatrix(dataArray):
 
     return dataMatrix
 
+def getIt(fileName):
+    data = np.genfromtxt(fileName, dtype = int)
+    return toDataMatrix(data[:,:3])
+    
 # cale dane
 def getAll():
     return getIt('../data/u.data')

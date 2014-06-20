@@ -3,8 +3,7 @@
 import numpy as np
 import data as dt
 
-def slopeOne(dataArray):
-    dataMatrix = dt.toDataMatrix(dataArray)
+def slopeOne(dataMatrix):
     resultMatrix = dataMatrix.copy()
     
     usersNo = dt.getUsersNo()

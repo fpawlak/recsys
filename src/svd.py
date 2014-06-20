@@ -14,11 +14,9 @@ def findNumber(S, level):
             return i
     return size
     
-def getRecommendations(dataArray, level = 0.7):
+def getRecommendations(dataMatrix, level = 0.7):
     
     #dataArray = dataBase = dt.getIt('../data/u1.base')[:6]
-        
-    dataMatrix = dt.toDataMatrix(dataArray)
         
     movieMeans = dataMatrix.sum(0) / (dataMatrix != 0).sum(0)
     movieMeans[np.isnan(movieMeans)] = 0
