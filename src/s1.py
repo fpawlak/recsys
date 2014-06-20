@@ -5,6 +5,7 @@ import data as dt
 
 def slopeOne(dataArray):
     dataMatrix = dt.toDataMatrix(dataArray)
+    resultMatrix = dataMatrix.copy()
     
     usersNo = dt.getUsersNo()
     moviesNo = dt.getMoviesNo()
@@ -54,9 +55,9 @@ def slopeOne(dataArray):
                         denominator += noOfUsers[j]
 
                 if(denominator > 0):
-                    dataMatrix[user, i] = numerator/denominator
+                    resultMatrix[user, i] = numerator/denominator
 
-    return dataMatrix
+    return resultMatrix
 
 # dane = dt.getTest1()
 # wynik = slopeOne(dane)
