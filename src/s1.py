@@ -112,9 +112,8 @@ class SlopeOne(object):
 
             if nOU > 0:
                 diff = tD/float(nOU)
-
-            numerator += nOU * (rating + diff)
-            denominator += nOU
+                numerator += nOU * (rating + diff)
+                denominator += nOU
 
         if denominator > 0:
             return numerator/denominator
