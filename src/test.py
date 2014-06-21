@@ -2,12 +2,13 @@
 
 import svd
 import data as dt
+import numpy as np
 
 
 dataBase = dt.getBase1()
 dataTest = dt.getTest1()
 
-recs = svd.getRecommendations(dataBase)
+recs = svd.getRecommendations(dt.toDataMatrix(dataBase))
 
 badScores = 0
 
