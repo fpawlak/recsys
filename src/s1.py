@@ -15,22 +15,21 @@ class SlopeOne(object):
         self.avgDifference = np.zeros(shape=(self.moviesNo+1, self.moviesNo+1))        
 
     def setData(self, data):
-        self.data = data
-        (self.height, _) = data.shape
+        (height, _) = data.shape
         self.d = {}
 
-        user = self.data[0, 0]
+        user = data[0, 0]
         start = 0
 
-        for i in range(1, self.height):
-            if self.data[i, 0] != user:
+        for i in range(1, height):
+            if data[i, 0] != user:
                 end = i
-                self.d[user] = self.data[start:end, 1:] 
+                self.d[user] = data[start:end, 1:] 
 
                 start = i
-                user = self.data[i, 0]
+                user = data[i, 0]
 
-        self.d[user] = self.data[start:self.height, 1:]
+        self.d[user] = data[start:height, 1:]
 
     def computeDiffs(self):
         for (_, ratings) in self.d.iteritems():
@@ -129,10 +128,8 @@ class SlopeOne(object):
             return 0            
 
     def fillMatrix(self, dataMatrix):
-        (height, width) = dataMatrix.shape
-
-        for i in range(0, height):
-            for j in range(0, width):
+        for i in range(0, self.usersNo):
+            for j in range(0, self.moviesNo):
                 if dataMatrix[i, j] == 0:
                     dataMatrix[i, j] = self.predict(i+1, j+1)
 
