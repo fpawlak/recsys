@@ -11,4 +11,5 @@ Co można zrobić:
 
 nie wiadomo w jaki sposób oni okroili te dane - to może wpływać na skuteczność poszczególnych metod
 przy testowaniu Slope One na podzielonym zbiorze danych nie trzeba liczyć całej macierzy - wystarczy liczyć dla par użytkownik/film ze zbioru testowego
+mogę wrzucić skrypt shellowy do dzielenia danych na dwa zbiory
 
