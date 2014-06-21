@@ -52,6 +52,12 @@ class SlopeOne(object):
                 if nOU > 0:
                     self.avgDifference[i, j] = tD/float(nOU)
 
+                # wypelniamy od razu pod przekatna
+                self.noOfUsers[j, i] = nOU
+                self.totalDifference[j, i] = -tD
+                self.avgDifference[j, i] = -self.avgDifference[i, j]
+            
+
     def predict(self, user, movie):
         numerator = 0
         denominator = 0
@@ -64,14 +70,8 @@ class SlopeOne(object):
             from_movie = ratings[i, 0]
             rating = ratings[i, 1]
 
-            # diff = ocena(movie) - ocena(from_movie)
-            
-            if movie > from_movie:
-                nOU = self.noOfUsers[from_movie, movie]
-                diff = -self.avgDifference[from_movie, movie]
-            else:               # from_movie > movie
-                nOU = self.noOfUsers[movie, from_movie]
-                diff = self.avgDifference[movie, from_movie]
+            nOU = self.noOfUsers[movie, from_movie]
+            diff = self.avgDifference[movie, from_movie]
 
             numerator += nOU * (rating + diff)
             denominator += nOU
@@ -104,14 +104,8 @@ class SlopeOne(object):
             
             rating = ratings[i, 1]
 
-            # diff = ocena(movie) - ocena(from_movie)
-            
-            if movie > from_movie:
-                nOU = self.noOfUsers[from_movie, movie]
-                tD = -self.totalDifference[from_movie, movie]
-            else:
-                nOU = self.noOfUsers[movie, from_movie]
-                tD = self.totalDifference[movie, from_movie]
+            nOU = self.noOfUsers[movie, from_movie]
+            tD = self.totalDifference[movie, from_movie]
 
             nOU -= 1
             tD -= movie_rating - rating
