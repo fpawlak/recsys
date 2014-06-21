@@ -8,7 +8,9 @@ import numpy as np
 dataBase = dt.getBase1()
 dataTest = dt.getTest1()
 
-recs = svd.getRecommendations(dt.toDataMatrix(dataBase))
+# recs = svd.getRecommendations(dt.toDataMatrix(dataBase))
+# recs = np.loadtxt('txt/u1base.txt')
+recs = svd.getRecommendations(np.loadtxt('txt/u1base.txt'))
 
 badScores = 0
 
