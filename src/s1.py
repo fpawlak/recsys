@@ -33,10 +33,10 @@ class SlopeOne(object):
 
     def computeDiffs(self):
         for (_, ratings) in self.d.iteritems():
-            (rheight, _) = ratings.shape
+            (height, _) = ratings.shape
 
-            for i in range(0, rheight):
-                for j in range(i+1, rheight):
+            for i in range(0, height):
+                for j in range(i+1, height):
                     im = ratings[i, 0]
                     ir = ratings[i, 1]
                     jm = ratings[j, 0]
@@ -58,9 +58,9 @@ class SlopeOne(object):
         
         ratings = self.d[user]
         
-        (rheight, _) = ratings.shape
+        (height, _) = ratings.shape
 
-        for i in range(0, rheight):
+        for i in range(0, height):
             from_movie = ratings[i, 0]
             rating = ratings[i, 1]
 
@@ -89,14 +89,14 @@ class SlopeOne(object):
         
         ratings = self.d[user]
         
-        (rheight, _) = ratings.shape
+        (height, _) = ratings.shape
         
-        for i in range(0, rheight):
+        for i in range(0, height):
             if ratings[i, 0] == movie:
                 movie_rating = ratings[i, 1]
                 break
 
-        for i in range(0, rheight):
+        for i in range(0, height):
             from_movie = ratings[i, 0]
 
             if from_movie == movie:
