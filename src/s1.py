@@ -49,8 +49,8 @@ class SlopeOne(object):
             for j in range(i+1, self.moviesNo+1):
                 tD = self.totalDifference[i, j]
                 nOU = self.noOfUsers[i, j]
-                if nOU > 0:
-                    self.avgDifference[i, j] = tD/float(nOU)
+                if nOU >= 1:
+                    self.avgDifference[i, j] = tD/nOU
 
                 # wypelniamy od razu pod przekatna
                 self.noOfUsers[j, i] = nOU
@@ -76,7 +76,7 @@ class SlopeOne(object):
             numerator += nOU * (rating + diff)
             denominator += nOU
 
-        if denominator > 0:
+        if denominator >= 1:
             return numerator/denominator
         else:
             return 0
@@ -110,12 +110,12 @@ class SlopeOne(object):
             nOU -= 1
             tD -= movie_rating - rating
 
-            if nOU > 0:
-                diff = tD/float(nOU)
+            if nOU >= 1:
+                diff = tD/nOU
                 numerator += nOU * (rating + diff)
                 denominator += nOU
 
-        if denominator > 0:
+        if denominator >= 1:
             return numerator/denominator
         else:
             return 0            
