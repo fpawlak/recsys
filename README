@@ -8,3 +8,7 @@ Co można zrobić:
 5. można coś napisać w raporcie o aktualizacji, złożoności czasowej/pamięciowej, zrobić porównanie
 6. komentarze w kodzie
 7. poprawianie kodu (np. żeby łatwo się testowało)
+
+nie wiadomo w jaki sposób oni okroili te dane - to może wpływać skuteczność poszczególnych metod
+przy testowaniu Slope One na podzielonym zbiorze danych nie trzeba liczyć całej macierzy - wystarczy liczyć dla par użytkownik/film ze zbioru testowego
+
