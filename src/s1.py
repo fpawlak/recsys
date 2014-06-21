@@ -84,13 +84,14 @@ class SlopeOne(object):
 
     # "Usuwa" ocene z danych i ja przewiduje.
     def remove_and_predict(self, user, movie):
+
         numerator = 0
         denominator = 0
         
         ratings = self.d[user]
         
         (rheight, _) = ratings.shape
-
+        
         for i in range(0, rheight):
             if ratings[i, 0] == movie:
                 movie_rating = ratings[i, 1]
@@ -100,7 +101,7 @@ class SlopeOne(object):
             from_movie = ratings[i, 0]
 
             if from_movie == movie:
-                pass
+                continue
             
             rating = ratings[i, 1]
 
@@ -116,7 +117,8 @@ class SlopeOne(object):
             nOU -= 1
             tD -= movie_rating - rating
 
-            diff = tD/float(noU)
+            if nOU > 0:
+                diff = tD/float(nOU)
 
             numerator += nOU * (rating + diff)
             denominator += nOU
