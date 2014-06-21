@@ -69,7 +69,7 @@ class SlopeOne(object):
             if movie > from_movie:
                 nOU = self.noOfUsers[from_movie, movie]
                 diff = -self.avgDifference[from_movie, movie]
-            else:
+            else:               # from_movie > movie
                 nOU = self.noOfUsers[movie, from_movie]
                 diff = self.avgDifference[movie, from_movie]
 
