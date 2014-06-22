@@ -12,13 +12,17 @@ def svdQualitySingle(data, testSize = 4, level = 0.45):
 # Sprawdza jakosc SVD wyciagajac pojedyncze elementy.
 # Zwraca procentowa trafnosc predykcji.
 #==============================================================================
+    f = open('svdQualitySingle.txt', 'a')
+    
     size = len(data)
     dataMatrix = dt.toDataMatrix(data)
-    testData = random.sample(xrange(1, size + 1), testSize) # losujemy testSize probek, ktore poddamy ocenie
+    # testData = random.sample(xrange(1, size + 1), testSize) # losujemy testSize probek, ktore poddamy ocenie
+    testData = range(0, size)
+    random.shuffle(testData)
     
     badScores = 0 # ustawiamy licznik zlej predykcji na zero
     
-    for i in range(testSize):
+    for i in range(0, size):
         
         # pobieramy dane o badanej probce
         row = data[testData[i], 0] - 1
@@ -34,9 +38,11 @@ def svdQualitySingle(data, testSize = 4, level = 0.45):
             badScores += 1
 
         dataMatrix[row, col] = value # przypisujemy pierwotna wartosc
-    
-    quality = float(testSize - badScores) / testSize
-    return quality
+
+        if i % testSize == 0:
+            quality = float((i+1) - badScores) / (i+1)
+            f.write(str(quality) + '\n')
+            f.flush()
 
 
 def svdQualityGroups(data, testSize = 10, sampleSize = 6, level = 0.45):
