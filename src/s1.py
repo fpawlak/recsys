@@ -147,8 +147,9 @@ class SlopeOne(object):
             jm = user_ratings[k, 0]
             if jm == im:
                 continue
+            jrating = user_ratings[k, 1]
             js.append(jm-1)
-            tD = self.totalDifference[im, jm] - rating
+            tD = self.totalDifference[im, jm] - (rating - jrating)
             new_nOU = self.noOfUsers[im, jm] - 1
             new_avgD[jm] = compFrac(tD, new_nOU)
 
