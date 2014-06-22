@@ -124,6 +124,10 @@ class SlopeOne(object):
     def modMatrix(self, user, movie):
         origMatrix = self.origMatrix
         dataMatrix = self.dataMatrix
+
+#       self.backup = []
+        
+        retMatrix = np.copy(dataMatrix)
         
         user_index = user - 1
         movie_index = movie - 1
@@ -171,9 +175,9 @@ class SlopeOne(object):
                     denominator += nOU
 
 
-                self.backup.append((user_index, movie_index, dataMatrix[user_index, movie_index]))
+#                self.backup.append((user_index, movie_index, dataMatrix[user_index, movie_index]))
                 prediction = compFrac(numerator, denominator)                
-                dataMatrix[user_index, movie_index] = prediction
+                retMatrix[user_index, movie_index] = prediction
 
 
                 
@@ -188,9 +192,9 @@ class SlopeOne(object):
                 denominator = self.den[user_index, l]
                 denominator -= self.noOfUsers[lm, im]
 
-                self.backup.append((user_index, l, dataMatrix[user_index, l]))
+#                self.backup.append((user_index, l, dataMatrix[user_index, l]))
                 prediction = compFrac(numerator, denominator)
-                dataMatrix[user_index, l] = prediction
+                retMatrix[user_index, l] = prediction
 
         # zmieniamy pozostale wiersze:
 
@@ -212,9 +216,9 @@ class SlopeOne(object):
                     numerator += (self.noOfUsers[jm, im]-1)*(i_rating + (-new_avgD[jm]))
                     denominator = self.den[k, j] - 1
 
-                    self.backup.append((k, j, dataMatrix[k, j]))
+#                    self.backup.append((k, j, dataMatrix[k, j]))
                     prediction = compFrac(numerator, denominator)
-                    dataMatrix[k, j] = prediction
+                    retMatrix[k, j] = prediction
                         
             else:
                 numerator = self.num[k, movie_index]
@@ -231,14 +235,14 @@ class SlopeOne(object):
                     numerator += (self.noOfUsers[im, jm]-1)*(j_rating + new_avgD[jm])
                     denominator -= 1
 
-                self.backup.append((k, movie_index, dataMatrix[k, movie_index]))
+#                self.backup.append((k, movie_index, dataMatrix[k, movie_index]))
                 prediction = compFrac(numerator, denominator)
-                dataMatrix[k, movie_index] = prediction
+                retMatrix[k, movie_index] = prediction
 
 
-    def revert(self):
-        for (user_index, movie_index, rating) in self.backup:
-            self.dataMatrix[user_index, movie_index] = rating
+    # def revert(self):
+    #     for (user_index, movie_index, rating) in self.backup:
+    #         self.dataMatrix[user_index, movie_index] = rating
         
     def fillMatrix(self, dataMatrix):
         self.num = np.zeros(shape=(self.usersNo, self.moviesNo))        
@@ -260,17 +264,19 @@ class SlopeOne(object):
 # s = SlopeOne()
 # s.setData(dane)
 # s.computeDiffs()
-# print "policzylem roznice"
 # origMatrix = dt.toDataMatrix(dane)
-# dataMatrix = np.copy(origMatrix)
-# s.fillMatrix(dataMatrix)
-# np.savetxt('macierz-wypelniona.txt', dataMatrix)
-# time.ctime()            
+# s.origMatrix = origMatrix
+# s.num = np.loadtxt('num.txt')
+# s.den = np.loadtxt('den.txt')
+# s.dataMatrix = np.loadtxt('macierz-wypelniona.txt')
+
+
 
 # licznik = 0
-# for i in range(0, 200):
-#     if licznik % 100 == 0:
-#         print time.ctime()
-#     foo = s.modMatrix(dane[i, 0], dane[i, 1], origMatrix, dataMatrix)
-#     licznik += 1
-    
+# print time.ctime()
+# for i in range(0, 100):
+# #    if licznik % 2 == 0:
+# #        print time.ctime()
+#     s.modMatrix(dane[i, 0], dane[i, 1])
+# #    s.revert()
+# print time.ctime()
