@@ -121,16 +121,16 @@ class SlopeOne(object):
 
         return compFrac(numerator, denominator)
 
-    # origMatrix to pierwotna macierz
-    # dataMatrix to macierz po przepuszczeniu przez fillMatrix
-    # zwraca liste par postaci (i, j, nowa predykcja)
-    def modMatrix(self, user, movie, origMatrix, dataMatrix):
+    def modMatrix(self, user, movie):
+        origMatrix = self.origMatrix
+        dataMatrix = self.dataMatrix
+        
         user_index = user - 1
         movie_index = movie - 1
 
         rating = origMatrix[user_index, movie_index]
 
-        predictions = []
+        self.backup = []
 
         new_avgD = {}
 
@@ -170,8 +170,11 @@ class SlopeOne(object):
                     numerator += nOU * (from_rating + diff)
                     denominator += nOU
 
-                prediction = compFrac(numerator, denominator)
-                predictions.append((user_index, movie_index, prediction))
+
+                self.backup.append((user_index, movie_index, dataMatrix[user_index, movie_inded]))
+                prediction = compFrac(numerator, denominator)                
+                dataMatrix[user_index, movie_index] = prediction
+
 
                 
             else:
@@ -185,8 +188,9 @@ class SlopeOne(object):
                 denominator = self.den[user_index, l]
                 denominator -= self.noOfUsers[lm, im]
 
+                self.backup.append((user_index, l, dataMatrix[user_index, l]))
                 prediction = compFrac(numerator, denominator)
-                predictions.append((user_index, l, prediction))
+                dataMatrix[user_index, l] = prediction
 
         # zmieniamy pozostale wiersze:
 
@@ -208,8 +212,9 @@ class SlopeOne(object):
                     numerator += (self.noOfUsers[jm, im]-1)*(i_rating + (-new_avgD[jm]))
                     denominator = self.den[k, j] - 1
 
+                    self.backup.append((k, j, dataMatrix[k, j]))
                     prediction = compFrac(numerator, denominator)
-                    predictions.append((k, j, prediction))
+                    dataMatrix[k, j] = prediction
                         
             else:
                 numerator = self.num[k, movie_index]
@@ -226,19 +231,20 @@ class SlopeOne(object):
                     numerator += (self.noOfUsers[im, jm]-1)*(j_rating + new_avgD[jm])
                     denominator -= 1
 
-                    
+                self.backup.append((k, movie_index, dataMatrix[k, movie_index]))
                 prediction = compFrac(numerator, denominator)
-                predictions.append((k, movie_index, prediction))
-                
-        return predictions         
+                dataMatrix[k, movie_index] = prediction
 
-    def revert(self, dataMatrix):
+
+    def revert(self):
         for (user_index, movie_index, rating) in self.backup:
-            dataMatrix[user_index, movie_index] = rating
+            self.dataMatrix[user_index, movie_index] = rating
         
     def fillMatrix(self, dataMatrix):
         self.num = np.zeros(shape=(self.usersNo, self.moviesNo))        
         self.den = np.zeros(shape=(self.usersNo, self.moviesNo))
+        self.origMatrix = np.copy(dataMatrix)
+        self.dataMatrix = dataMatrix
         
         for i in range(0, self.usersNo):
             for j in range(0, self.moviesNo):
