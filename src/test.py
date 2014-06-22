@@ -90,7 +90,7 @@ def svdQualityGroups(data, testSize = 10, sampleSize = 6, level = 0.45):
 
 
 
-def slopeOneQuality(data, testSize):
+def slopeOneQuality(data):
 #==============================================================================
 #     Sprawdza jakosc SlopeOne wyciagajac pojedyncze elementy. 
 #     Zwraca procentowa trafnosc predykcji.
@@ -114,3 +114,57 @@ def slopeOneQuality(data, testSize):
 
 
 
+def svdQualityGroupsMultiple(data, testSize = 10, sampleSize = 6, levels = [0.38, 0.41, 0.44, 0.47, 0.50, 0.53]):
+#==============================================================================
+#     Sprawdza jakosc SVD wyciagajac pojedyncze elementy (grupami).
+#     Zwraca procentowa trafnosc predykcji.
+#     Dla roznych leveli.
+#     
+#
+#     testSize - liczba probek
+#     sampleSize - liczba elementow w probce (tyle elementow jest zerowanych
+#                  na raz)
+#     levels = rozne levele do sprawdzenia, ktory jest najlepszy
+#==============================================================================
+
+    overallSize = testSize * sampleSize
+    size = len(data) # wielkosc danych (tutaj: 100k)
+    
+    # sprawdzenie czy liczba sprawdzanych elementow jest niewieksza od liczby elementow
+    if overallSize > size:
+        print 'Za duza probka! ', testSize, ' * ', sampleSize, ' = ', overallSize, ' > ', size 
+        return 0
+    else:
+        dataMatrix = dt.toDataMatrix(data)
+        testData = random.sample(xrange(1, size), overallSize) # losujemy overallSize probek, ktore poddamy ocenie
+        testData = np.reshape(testData, [testSize, sampleSize]) # zmieniamy ich ksztalt tak by byl to array wielkosci testSize x sampleSize
+        
+
+        for k in range(len(levels)):
+            level = levels[k]
+            badScores = 0 # ustawiamy licznik zlej predykcji na zero
+            for i in range(testSize):
+                
+                # ustawiamy wsyzstkie probki w grupie na 0 (zero)
+                for j in range(sampleSize):
+                    row =   data[testData[i][j], 0] - 1
+                    col =   data[testData[i][j], 1] - 1
+                    dataMatrix[row, col] = 0
+                    
+                predictData = svd.getRecommendations(dataMatrix, level) # liczymy predykcje
+                
+                # porownujemy wyniki
+                for j in range(sampleSize):
+                    row =   data[testData[i][j], 0] - 1
+                    col =   data[testData[i][j], 1] - 1
+                    value = data[testData[i][j], 2]
+                    predictedValue = predictData[row, col]
+                    if abs(value - predictedValue) >= 0.5:
+                        badScores += 1
+                        
+                    dataMatrix[row, col] = value # ustawiamy na oryginalna wartosc
+        
+            quality = float(overallSize - badScores) / overallSize
+            print 'Level = ',level,', jakosc: ',quality
+        return quality
+        
