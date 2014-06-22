@@ -2,7 +2,6 @@
 
 import numpy as np
 import data as dt
-import random
 
 def findNumber(S, level):
 #==============================================================================
@@ -22,7 +21,7 @@ def findNumber(S, level):
             return i
     
 
-def getRecommendations(dataMatrix, level = 0.45):
+def getRecommendations(dataMatrix, level = 0.47):
 #==============================================================================
 #     Na podstawie danych i zadnego poziomu zwraca dane bez zaszumienia, ktore
 #     usuwa SVD.

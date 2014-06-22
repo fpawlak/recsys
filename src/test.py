@@ -7,7 +7,51 @@ import data as dt
 import numpy as np
 
 
-def svdQualitySingle(data, testSize = 4, level = 0.45):
+def svdS1QualitySingle(data, testSize = 10, level = 0.47):
+#==============================================================================
+# Sprawdza jakosc SVD wyciagajac pojedyncze elementy.
+# Zwraca procentowa trafnosc predykcji.
+#==============================================================================
+
+    f = open('svdS1QualitySingle.txt', 'a')
+    
+    s = s1.SlopeOne()
+    s.setData(data)
+    s.computeDiffs()
+    origMatrix = dt.toDataMatrix(data)
+    s.origMatrix = origMatrix
+    s.num = np.loadtxt('num.txt')
+    s.den = np.loadtxt('den.txt')
+    s.dataMatrix = np.loadtxt('macierz-wypelniona.txt')
+    
+    size = len(data)
+    testData = range(0, size)
+    random.shuffle(testData)
+    
+    badScores = 0 # ustawiamy licznik zlej predykcji na zero
+
+    for i in range(size):
+        # pobieramy dane o badanej probce
+        row = data[testData[i], 0]
+        col = data[testData[i], 1]
+        value = data[testData[i], 2]
+        
+        predictData = svd.getRecommendations(s.modMatrix(row, col), level) # liczymy predykcje
+        predictedValue = predictData[row, col] # pobieramy wartosc predykcji dla tej probki
+
+        # sprawdzamy roznice
+        
+        if abs(value - predictedValue) >= 0.5:
+            badScores += 1
+
+        if i % testSize == 0:
+            quality = float((i+1) - badScores) / (i+1)
+            f.write(str(quality) + '\n')
+            f.flush()
+
+
+
+def svdQualitySingle(data, testSize = 10, level = 0.47):
 #==============================================================================
 # Sprawdza jakosc SVD wyciagajac pojedyncze elementy.
 # Zwraca procentowa trafnosc predykcji.
@@ -16,13 +60,12 @@ def svdQualitySingle(data, testSize = 4, level = 0.45):
     
     size = len(data)
     dataMatrix = dt.toDataMatrix(data)
-    # testData = random.sample(xrange(1, size + 1), testSize) # losujemy testSize probek, ktore poddamy ocenie
     testData = range(0, size)
     random.shuffle(testData)
     
     badScores = 0 # ustawiamy licznik zlej predykcji na zero
     
-    for i in range(0, size):
+    for i in range(size):
         
         # pobieramy dane o badanej probce
         row = data[testData[i], 0] - 1
@@ -45,7 +88,7 @@ def svdQualitySingle(data, testSize = 4, level = 0.45):
             f.flush()
 
 
-def svdQualityGroups(data, testSize = 10, sampleSize = 6, level = 0.45):
+def svdQualityGroups(data, testSize = 10, sampleSize = 25, level = 0.47):
 #==============================================================================
 #     Sprawdza jakosc SVD wyciagajac pojedyncze elementy (grupami).
 #     Zwraca procentowa trafnosc predykcji.
@@ -54,22 +97,22 @@ def svdQualityGroups(data, testSize = 10, sampleSize = 6, level = 0.45):
 #     sampleSize - liczba elementow w probce (tyle elementow jest zerowanych
 #                  na raz)
 #==============================================================================
-
-    overallSize = testSize * sampleSize
+    f = open('svdQualityGroups.txt', 'a')
     size = len(data) # wielkosc danych (tutaj: 100k)
     
-    # sprawdzenie czy liczba sprawdzanych elementow jest niewieksza od liczby elementow
-    if overallSize > size:
-        print 'Za duza probka! ', testSize, ' * ', sampleSize, ' = ', overallSize, ' > ', size 
-        return 0
+    if size % sampleSize != 0:
+        print 'Parametr sampleSize nie dzieli rowno danych!'
     else:
+        
         dataMatrix = dt.toDataMatrix(data)
-        testData = random.sample(xrange(1, size + 1), overallSize) # losujemy overallSize probek, ktore poddamy ocenie
-        testData = np.reshape(testData, [testSize, sampleSize]) # zmieniamy ich ksztalt tak by byl to array wielkosci testSize x sampleSize
+        testData = range(size)
+        random.shuffle(testData)
+        testData = np.reshape(testData, [size/sampleSize, sampleSize]) # zmieniamy ich ksztalt tak by byl to array wielkosci testSize x sampleSize
         
         badScores = 0 # ustawiamy licznik zlej predykcji na zero
         
-        for i in range(testSize):
+        forSize = size / sampleSize
+        for i in range(forSize):
             
             # ustawiamy wsyzstkie probki w grupie na 0 (zero)
             for j in range(sampleSize):
@@ -89,10 +132,12 @@ def svdQualityGroups(data, testSize = 10, sampleSize = 6, level = 0.45):
                     badScores += 1
                     
                 dataMatrix[row, col] = value # ustawiamy na oryginalna wartosc
-        
-        quality = float(overallSize - badScores) / overallSize
-        return quality
-        
+                
+            if i % testSize == 0:
+                quality = float(sampleSize * (i+1) - badScores) / ((i+1) * sampleSize)
+                f.write(str(quality) + '\n')
+                f.flush()
+                
 
 def slopeOneQuality(data):
 #==============================================================================
@@ -140,7 +185,7 @@ def svdQualityGroupsMultiple(data, testSize = 10, sampleSize = 6, levels = [0.38
         return 0
     else:
         dataMatrix = dt.toDataMatrix(data)
-        testData = random.sample(xrange(1, size + 1), overallSize) # losujemy overallSize probek, ktore poddamy ocenie
+        testData = random.sample(xrange(size), overallSize) # losujemy overallSize probek, ktore poddamy ocenie
         testData = np.reshape(testData, [testSize, sampleSize]) # zmieniamy ich ksztalt tak by byl to array wielkosci testSize x sampleSize
         
 
