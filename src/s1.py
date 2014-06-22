@@ -239,7 +239,8 @@ class SlopeOne(object):
                 prediction = compFrac(numerator, denominator)
                 retMatrix[k, movie_index] = prediction
 
-
+        return retMatrix
+                
     # def revert(self):
     #     for (user_index, movie_index, rating) in self.backup:
     #         self.dataMatrix[user_index, movie_index] = rating
