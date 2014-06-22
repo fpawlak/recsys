@@ -182,9 +182,9 @@ class SlopeOne(object):
 
                 lm = l + 1
 
-                numerator = num[user_index, l]
+                numerator = self.num[user_index, l]
                 numerator -= self.noOfUsers[lm, im]*(rating + self.avgDifference[lm, im])
-                denominator = den[user_index, l]
+                denominator = self.den[user_index, l]
                 denominator -= self.noOfUsers[lm, im]
 
                 prediction = self.compPred(numerator, denominator)
@@ -205,17 +205,17 @@ class SlopeOne(object):
                         
                     jm = j + 1
 
-                    numerator = num[k, j]
+                    numerator = self.num[k, j]
                     numerator -= self.noOfUsers[jm, im]*(i_rating + self.avgDifference[jm, im])
                     numerator += new_nOU[jm]*(i_rating + (-new_avgD[jm]))
-                    denominator = den[k, j] - 1
+                    denominator = self.den[k, j] - 1
 
                     prediction = self.compPred(numerator, denominator)
                     predictions.append(k, j, prediction)
                         
             else:
-                numerator = num[k, movie_index]
-                denominator = den[k, movie_index]
+                numerator = self.num[k, movie_index]
+                denominator = self.den[k, movie_index]
                 
                 for j in js:
                     if origMatrix[k, j] == 0:
