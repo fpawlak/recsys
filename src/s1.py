@@ -3,6 +3,15 @@
 import numpy as np
 import data as dt
 
+
+def compFrac(self, numerator, denominator):
+    try:
+        result = numerator/denominator
+    except:
+        result = 0
+
+    return result
+
 # Wymaga, zeby dane byly posortowane (po pierwszej, a nastepnie po drugiej
 # kolumnie).
 
@@ -13,14 +22,6 @@ class SlopeOne(object):
         self.totalDifference = np.zeros(shape=(self.moviesNo+1, self.moviesNo+1))
         self.noOfUsers = np.zeros(shape=(self.moviesNo+1, self.moviesNo+1))
         self.avgDifference = np.zeros(shape=(self.moviesNo+1, self.moviesNo+1))        
-
-    def compPred(self, numerator, denominator):
-        try:
-            prediction = numerator/denominator
-        except:
-            prediction = 0
-
-        return prediction
         
     def setData(self, data):
         (height, _) = data.shape
@@ -120,7 +121,7 @@ class SlopeOne(object):
                 numerator += nOU * (rating + diff)
                 denominator += nOU
 
-        return self.compPred(numerator, denominator)
+        return compFrac(numerator, denominator)
 
     # origMatrix to pierwotna macierz
     # dataMatrix to macierz po przepuszczeniu przez fillMatrix
@@ -133,7 +134,7 @@ class SlopeOne(object):
 
         predictions = []
 
-        new_avgD = np.zeros(shape=self.moviesNo+1)
+        new_avgD = {}
 
         user_ratings = d[user]
         (height, _) = user_ratings.shape
@@ -149,8 +150,7 @@ class SlopeOne(object):
             js.append(jm-1)
             tD = self.totalDifference[im, jm] - rating
             new_nOU = self.noOfUsers[im, jm] - 1
-            if new_nOU >= 1:
-                new_avgD[jm] = tD/new_nOU
+            new_avgD[jm] = compFrac(tD, new_nOU)
 
         # zmieniamy wiersz uzytkownika user:
 
@@ -171,7 +171,7 @@ class SlopeOne(object):
                     numerator += nOU * (from_rating + diff)
                     denominator += nOU
 
-                prediction = self.compPred(numerator, denominator)
+                prediction = compFrac(numerator, denominator)
                 predictions.append(user_index, movie_index, prediction)
 
                 
@@ -186,7 +186,7 @@ class SlopeOne(object):
                 denominator = self.den[user_index, l]
                 denominator -= self.noOfUsers[lm, im]
 
-                prediction = self.compPred(numerator, denominator)
+                prediction = compFrac(numerator, denominator)
                 predictions.append(user_index, l, prediction)
 
         # zmieniamy pozostale wiersze:
@@ -209,7 +209,7 @@ class SlopeOne(object):
                     numerator += (self.noOfUsers[jm, im]-1)*(i_rating + (-new_avgD[jm]))
                     denominator = self.den[k, j] - 1
 
-                    prediction = self.compPred(numerator, denominator)
+                    prediction = compFrac(numerator, denominator)
                     predictions.append(k, j, prediction)
                         
             else:
@@ -228,7 +228,7 @@ class SlopeOne(object):
                     denominator -= 1
 
                     
-                prediction = self.compPred(numerator, denominator)
+                prediction = compFrac(numerator, denominator)
                 predictions.append(k, movie_index, prediction)
                 
 
@@ -244,7 +244,7 @@ class SlopeOne(object):
                     self.num[i, j] = numerator
                     self.den[i, j] = denominator
                     
-                    dataMatrix[i, j] = self.compPred(numerator, denominator)
+                    dataMatrix[i, j] = compFrac(numerator, denominator)
 
 # dane = dt.getBase1()
 # s = SlopeOne()
