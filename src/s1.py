@@ -171,7 +171,7 @@ class SlopeOne(object):
                     denominator += nOU
 
 
-                self.backup.append((user_index, movie_index, dataMatrix[user_index, movie_inded]))
+                self.backup.append((user_index, movie_index, dataMatrix[user_index, movie_index]))
                 prediction = compFrac(numerator, denominator)                
                 dataMatrix[user_index, movie_index] = prediction
 
