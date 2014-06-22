@@ -133,7 +133,6 @@ class SlopeOne(object):
 
         predictions = []
 
-        new_nOU = np.zeros(shape=self.moviesNo+1)
         new_avgD = np.zeros(shape=self.moviesNo+1)
 
         user_ratings = d[user]
@@ -149,9 +148,9 @@ class SlopeOne(object):
                 continue
             js.append(jm-1)
             tD = self.totalDifference[im, jm] - rating
-            new_nOU[jm] = self.noOfUsers[im, jm] - 1
-            if new_nOU[jm] >= 1:
-                new_avgD[jm] = tD/new_nOU[jm]
+            new_nOU = self.noOfUsers[im, jm] - 1
+            if new_nOU >= 1:
+                new_avgD[jm] = tD/new_nOU
 
         # zmieniamy wiersz uzytkownika user:
 
@@ -166,7 +165,7 @@ class SlopeOne(object):
                         continue
                     from_rating = user_ratings[k, 1]
 
-                    nOU = new_nOU[from_movie]
+                    nOU = self.noOfUsers[movie, from_movie] - 1
                     diff = new_avgD[from_movie]
 
                     numerator += nOU * (from_rating + diff)
@@ -207,7 +206,7 @@ class SlopeOne(object):
 
                     numerator = self.num[k, j]
                     numerator -= self.noOfUsers[jm, im]*(i_rating + self.avgDifference[jm, im])
-                    numerator += new_nOU[jm]*(i_rating + (-new_avgD[jm]))
+                    numerator += (self.noOfUsers[jm, im]-1)*(i_rating + (-new_avgD[jm]))
                     denominator = self.den[k, j] - 1
 
                     prediction = self.compPred(numerator, denominator)
@@ -225,7 +224,7 @@ class SlopeOne(object):
                     jm = j + 1
                         
                     numerator -= self.noOfUsers[im, jm]*(j_rating + self.avgDifference[im, jm])
-                    numerator += new_nOU[jm]*(j_rating + new_avgD[jm])
+                    numerator += (self.noOfUsers[im, jm]-1)*(j_rating + new_avgD[jm])
                     denominator -= 1
 
                     
