@@ -5,12 +5,10 @@ import data as dt
 
 
 def compFrac(numerator, denominator):
-    try:
-        result = numerator/denominator
-    except:
-        result = 0
-
-    return result
+    if denominator >= 1:
+        return numerator/denominator
+    else:
+        return 0
 
 # Wymaga, zeby dane byly posortowane (po pierwszej, a nastepnie po drugiej
 # kolumnie).
