@@ -1,3 +1,22 @@
+22.06.2014
+
+TODO:
+1. cala macierz S1 po pojedynczje modyfikacji
+2. testowanie SVD + S1
+3. raport
+
+TESTY DO WYKONANIA
+1. s1 z wycaiganiem pojedynczym (100% danych)
+2. svd z wyciaganiem pojedynczym (5%)
+3. svd z wyciaganiem pojedynczym w grupach (100%)
+4. svd + s1 z wyciaganiem pojedynczym (moze 5%?)
+5. s1 + svd z wyciaganiem pojedynczym (moze 5%?)
+6. test na ustalenie poziomu dla SVD
+
+MAYBE (to mozna zapisac w rzeczach do zrobienia - trzeba takie cos zrobic w rapocie i tak :P)
+1. cala macierz S1 po k modyfikacjach
+2. testowanie s1 + svd (oraz svd + s1) z wyciaganiem pojedynczym w grupach
+
 21.06.2014
 
 Co można zrobić:
