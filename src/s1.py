@@ -231,6 +231,7 @@ class SlopeOne(object):
                 prediction = compFrac(numerator, denominator)
                 predictions.append(k, movie_index, prediction)
                 
+        return predictions         
 
     def fillMatrix(self, dataMatrix):
         self.num = np.zeros(shape=(self.usersNo, self.moviesNo))        
