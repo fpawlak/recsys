@@ -39,6 +39,7 @@ def getBase2():
 def getTest2():
     return getIt('../data/u2.test')
 
+
 def getWiki():
     return getIt('../data/wiki.data')
     
