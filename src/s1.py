@@ -4,7 +4,7 @@ import numpy as np
 import data as dt
 
 
-def compFrac(self, numerator, denominator):
+def compFrac(numerator, denominator):
     try:
         result = numerator/denominator
     except:
@@ -248,12 +248,13 @@ class SlopeOne(object):
                     
                     dataMatrix[i, j] = compFrac(numerator, denominator)
 
-# dane = dt.getBase1()
-# s = SlopeOne()
-# s.setData(dane)
-# s.computeDiffs()
-# print "policzylem roznice"
-# dataMatrix = dt.toDataMatrix(dane)
-# s.fillMatrix(dataMatrix)
-# np.savetxt('wynik.txt', dataMatrix)
+dane = dt.getAll()
+s = SlopeOne()
+s.setData(dane)
+s.computeDiffs()
+print "policzylem roznice"
+origMatrix = dt.toDataMatrix(dane)
+dataMatrix = np.copy(origMatrix)
+s.fillMatrix(dataMatrix)
+np.savetxt('macierz-wypelniona.txt', dataMatrix)
             
