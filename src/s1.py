@@ -194,14 +194,19 @@ class SlopeOne(object):
 
         rating = origMatrix[user_index, movie_index]
 
-        new_avgD = {}
-
         user_ratings = self.d[user]
         (height, _) = user_ratings.shape
 
+        # indeksy pozostałych filmów które ocenił użytkownik user
         js = []
 
         im = movie # tak dla wygody
+        
+        # new_avg[jm] = nowa średnia różnica pomiędzy filmem im i filmem jm
+        # (gdzie jm jest jednym z pozostałych filmów, które ocenił użytkownik user)
+        new_avgD = {}
+
+        # obliczamy new_avgD
         
         for k in range(0, height):
             jm = user_ratings[k, 0]
@@ -209,9 +214,9 @@ class SlopeOne(object):
                 continue
             jrating = user_ratings[k, 1]
             js.append(jm-1)
-            tD = self.totalDifference[im, jm] - (rating - jrating)
+            new_tD = self.totalDifference[im, jm] - (rating - jrating)
             new_nOU = self.noOfUsers[im, jm] - 1
-            new_avgD[jm] = compFrac(tD, new_nOU)
+            new_avgD[jm] = compFrac(new_tD, new_nOU)
 
         # zmieniamy wiersz uzytkownika user:
 
