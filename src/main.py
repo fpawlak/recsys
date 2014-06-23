@@ -34,14 +34,14 @@ data = dt.getAll()
 # print '\nCzas trwania: ', time.time() - t0
 #==============================================================================
 
-###### TEST 3
+###### TEST 3 - interpreter 2
 #==============================================================================
 # t0 = time.time()
 # test.svdQualityGroups(data, sampleSize = 100)
 # print '\nCzas trwania: ', time.time() - t0
 #==============================================================================
 
-###### TEST 4
+###### TEST 4 - interpreter 1
 t0 = time.time()
 test.svdS1QualitySingle(data)
 print '\nCzas trwania: ', time.time() - t0

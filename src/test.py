@@ -37,7 +37,7 @@ def svdS1QualitySingle(data, testSize = 10, level = 0.47):
         value = data[testData[i], 2]
         
         predictData = svd.getRecommendations(s.modMatrix(row, col), level) # liczymy predykcje
-        predictedValue = predictData[row, col] # pobieramy wartosc predykcji dla tej probki
+        predictedValue = predictData[row-1, col-1] # pobieramy wartosc predykcji dla tej probki
 
         # sprawdzamy roznice
         
