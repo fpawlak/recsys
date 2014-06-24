@@ -1,3 +1,4 @@
+# grupy po 100 elementów, zapis co 10 grup
 0.39
 0.42
 0.418095238095
