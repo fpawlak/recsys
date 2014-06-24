@@ -79,13 +79,13 @@ Przykład użycia znajduje się w pliku źródłowym src/s1.py.
 
 Wyniki poszczególnych testów:
 
-i. 41,6%
+i. 41,6% (Slope One)
 
-ii. 40,5%
+ii. 40,5% (SVD)
 
-iii. 40,6%
+iii. 40,6% (SVD grupami)
 
-iv. 43,0%
+iv. 43,0% (Slope One + SVD)
 
 W katalogu src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
