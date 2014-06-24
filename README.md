@@ -5,14 +5,13 @@
 5. Wyniki
 6. Podsumowanie, perspektywy rozwoju
 
-# test
 
-1. Opis danych i zagadnienia
+#1. Opis danych i zagadnienia
 
 Celem projektu było stworzenie systemu rekomendującego dla filmów. Posłużyliśmy się przy tym danymi MovieLens dostarczonymi przez GroupLens Research. Do wyboru były 3 zestawy danych o wielkości 100 tysięcy, 1 miliona, 10 milionów rekordów. Wybraliśmy pierwszy zestaw, który zawiera oceny dodane przez 1000 użytkowników na 1700 filmach. Wybór podyktowany był zbyt dużymi kosztami obliczeniowymi przy większych zestawach danych. Każdy użytkownik musiał dodać co najmniej 20 ocen. Należy zwrócić uwagę, że macierz uzyskana z dostarczonych ocen jest rzadka, ponieważ uzupełnionych jest mniej niż 6% elementów
 
 
-2. Użyte metody
+#2. Użyte metody
 
 Przy ustalaniu wyboru metod sugerowaliśmy się tym, by można je było zaimplementować i przetestować w rozsądnym czasie, oraz żeby otrzymane wyniki były jak najlepsze. W tym celu pod uwagę wzięliśmy metody poznane na wykładzie oraz zapoznaliśmy się z wieloma dokumentami nt. Netflix Prize, aby dowiedzieć się, które metody okazały się najbardziej skuteczne w owym konkursie. Chcieliśmy również wybrać co najmniej 2 metody, tak by można było je porównać oraz zastosować razem.
 
@@ -21,9 +20,9 @@ Z wykładu została wybrana metoda Slope One, która jest rozszerzeniem Collabor
 Drugim wyborem była metoda SVD, która przez wiele osób została oceniona jako jedna z lepszych metod dla systemów rekomendujących. Jest ona podobna do PCA. Główna idea polega na usunięciu szumów z danych poprzez przejście do niższego wymiaru. Na początku wykonujemy dekompozycję macierzy na 3 specyficzne macierze, z których środkowa jest diagonalna, a lewa i prawa są ortonormalnymi macierzami przejścia/powrotu do/z nowej przestrzeni (takiego samego wymiaru jak pierwotnie). W nowej przestrzeni w sposób trywialny możemy sprawdzić, które wymiary odpowiadają za najmniejszą wariancję i je usunąć poprzez wyzerowanie odpowiadającym im wartości własnych (są to najmniejsze wartości własne).
 
 
-3. Opis implementacji
+#3. Opis implementacji
 
-3.1. Slope One
+##3.1. Slope One
 
 Metoda Slope One została zaimplementowana w klasie SlopeOne. Obiekt tej klasy przechowuje wyniki przetwarzania wstępnego niezbędne do dalszych obliczeń (m.in. średnie różnice pomiędzy wszystkimi parami filmów).
 
@@ -33,7 +32,7 @@ Policzenie wszystkich różnic wymaga czasu O(my^2 + n^2), gdzie y jest oszacowa
 
 Predykcja pojedynczej oceny wymaga czasu O(x), gdzie x to liczba filmów, które ocenił użytkownik. Predykcja ocen wszystkich nieocenionych filmów dla pojedynczego użytkownika wymaga czasu O((n - x) * x).
 
-3.2. SVD
+##3.2. SVD
 
 Że względu na szerokie zastosowanie tej metody, większość języków ma ją zaimplementowaną w swoich bibliotekach. Tak jest również w przypadku Pythona, dlatego implementacja sprowadza się do dostosowania tej metody do naszych danych oraz kalibracji.
 
@@ -44,7 +43,7 @@ Ostatnią kwestią zostaje ustalenie tego jak dużo szumu chcemy usunąć, tj. i
 Zastosowaliśmy również połączenie obu metod. W przypadku SVD puste miejsca w macierzy uzupełniliśmy średnimi dla każdego filmu, co było dużym uproszczeniem. Zamiast tego najpierw stosujemy metodę Slope One, która uzupełnia wszystkie pola w macierzy i dopiero wtedy zostaje ona przetworzona przez SVD.
 
 
-4. Testy
+#4. Testy
 
 W celu sprawdzenia jakości zastosowanych metod wykonaliśmy wiele testów. Główna idea naszych testów to iteracja po wszystkich danych z paczki MovieLens i usuwanie po kolei pojedynczych ocen. Za każdym razem uzyskane w ten sposób dane traktujemy jakby były to zupełne nowe dane i sprawdzamy predykcję brakującej oceny. Sprawdzamy czy nie rożni się ona o więcej niż o 0,5 od prawidłowej wartości. Jeżeli tak, to predykcja zostaje uznana za prawidłową. Wydaje się, że jest to znacznie lepsza metoda, niż podział danych na uczące i testowe w stosunku 80/20 (który zaproponowali autorzy danych).
 
@@ -76,7 +75,7 @@ https://www.dropbox.com/s/s4kt5biyonmq70u/den.txt
 
 Przykład użycia znajduje się w pliku źródłowym src/s1.py.
 
-5. Wyniki
+#5. Wyniki
 
 Wyniki poszczególnych testów:
 
@@ -90,7 +89,7 @@ iv. 43%
 
 W katalogu src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
-6. Podsumowanie
+#6. Podsumowanie
 
 Najlepsze rezultaty dało wspólne zastosowanie obu algorytmów. Mimo wielu głosów za SVD, okazało się, że w bezpośredniej konfrontacji to Slope One był nieco lepszy. Być może wynika to ze specyfiki danych.
 
