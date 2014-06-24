@@ -17,10 +17,29 @@ def compFrac(numerator, denominator):
 # s.setData(data)
 # s.computeDiffs()
 # print s.predict(903, 289)
+# print s.remove_and_predict(1, 1)
 # dataMatrix = dt.toDataMatrix(data)
 # s.fillMatrix(dataMatrix)
 # print dataMatrix[903, 289]
-        
+# modMatrix = s.modMatrix(1, 1)
+# print modMatrix[0, 0]
+
+# Metoda computeDiffs może wykonywać się kilkadziesiąt sekund, zaś fillMatrix
+# nawet ponad 20 minut.
+
+# Przykład użycia z wczytaniem danych pośrednich obliczanych przez fillMatrix
+# (potrzebnych w metodzie modMatrix) z pliku:
+# data = dt.getAll()
+# s = SlopeOne()
+# s.setData(data)
+# s.computeDiffs()
+# s.origMatrix = dt.toDataMatrix(data)
+# s.dataMatrix = np.loadtxt('macierz-wypelniona.txt')
+# s.num = np.loadtxt('num.txt')
+# s.den = np.loadtxt('den.txt')
+# modMatrix = s.modMatrix(1, 1)
+# print modMatrix[0, 0]
+
 class SlopeOne(object):
     def __init__(self):
         self.usersNo = dt.getUsersNo()
