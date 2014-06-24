@@ -79,13 +79,13 @@ Przykład użycia znajduje się w pliku źródłowym src/s1.py.
 
 Wyniki poszczególnych testów:
 
-i. 41,565%
+i. 41,6%
 
 ii. 40,5%
 
 iii. 40,6%
 
-iv. 43%
+iv. 43,0%
 
 W katalogu src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
