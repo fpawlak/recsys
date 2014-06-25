@@ -34,7 +34,7 @@ Predykcja pojedynczej oceny wymaga czasu O(x), gdzie x to liczba filmów, które
 
 ##3.2. SVD
 
-Że względu na szerokie zastosowanie tej metody, większość języków ma ją zaimplementowaną w swoich bibliotekach. Tak jest również w przypadku Pythona, dlatego implementacja sprowadza się do dostosowania tej metody do naszych danych oraz kalibracji.
+Ze względu na szerokie zastosowanie tej metody, większość języków ma ją zaimplementowaną w swoich bibliotekach. Tak jest również w przypadku Pythona, dlatego implementacja sprowadza się do dostosowania tej metody do naszych danych oraz kalibracji.
 
 Aby zastosować ową metodę należy mieć macierz wypełnioną w 100%, a my mamy tylko niecałe 6%. Proponowane rozwiązanie to policzenie średniej dla każdego filmu i wstawienie odpowiednich liczb w brakujące pola. W 32 przypadkach okazuje się, że film nie ma żadnej oceny. Proponowane w różnych dokumentach rozwiązanie to wstawienie zera. Rozważyliśmy również wstawienie średniej dla wszystkich filmów. Sprawdziliśmy oba rozwiązania na małej próbce danych i zgodnie z intuicjami, drugie rozwiązanie okazało się lepsze, dlatego je zastosowaliśmy.
 
@@ -87,7 +87,7 @@ iii. 40,6% (SVD grupami)
 
 iv. 43,0% (Slope One + SVD)
 
-W katalogu src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
+W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
 #6. Podsumowanie
 
