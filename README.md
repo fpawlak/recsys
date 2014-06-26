@@ -92,9 +92,13 @@ W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów 
 Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej. Oto wyniki:
 
 i. (waitinig for results)
+
 ii. (waiting for results)
+
 iii. -
+
 iv. 90,2% (Slope One + SVD)
+
 
 #6. Podsumowanie
 
