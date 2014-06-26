@@ -8,7 +8,7 @@
 
 #1. Opis danych i zagadnienia
 
-Celem projektu było stworzenie systemu rekomendującego dla filmów. Posłużyliśmy się przy tym danymi MovieLens dostarczonymi przez GroupLens Research. Do wyboru były 3 zestawy danych o wielkości 100 tysięcy, 1 miliona, 10 milionów rekordów. Wybraliśmy pierwszy zestaw, który zawiera oceny dodane przez 1000 użytkowników na 1700 filmach. Wybór podyktowany był zbyt dużymi kosztami obliczeniowymi przy większych zestawach danych. Każdy użytkownik musiał dodać co najmniej 20 ocen. Należy zwrócić uwagę, że macierz uzyskana z dostarczonych ocen jest rzadka, ponieważ uzupełnionych jest mniej niż 6% elementów
+Celem projektu było stworzenie systemu rekomendującego dla filmów. Posłużyliśmy się przy tym danymi MovieLens dostarczonymi przez GroupLens Research. Do wyboru były 3 zestawy danych o wielkości 100 tysięcy, 1 miliona, 10 milionów rekordów. Wybraliśmy pierwszy zestaw, który zawiera oceny dodane przez 1000 użytkowników na 1700 filmach. Wybór podyktowany był zbyt dużymi kosztami obliczeniowymi przy większych zestawach danych. Każdy użytkownik musiał dodać co najmniej 20 ocen. Należy zwrócić uwagę, że macierz uzyskana z dostarczonych ocen jest rzadka, ponieważ uzupełnionych jest mniej niż 6% elementów. Oceny możlwie do wystawienia przez użytkowników to 1, 2, 3, 4, 5.
 
 
 #2. Użyte metody
@@ -45,7 +45,7 @@ Zastosowaliśmy również połączenie obu metod. W przypadku SVD puste miejsca 
 
 #4. Testy
 
-W celu sprawdzenia jakości zastosowanych metod wykonaliśmy wiele testów. Główna idea naszych testów to iteracja po wszystkich danych z paczki MovieLens i usuwanie po kolei pojedynczych ocen. Za każdym razem uzyskane w ten sposób dane traktujemy jakby były to zupełne nowe dane i sprawdzamy predykcję brakującej oceny. Sprawdzamy czy nie rożni się ona o więcej niż o 0,5 od prawidłowej wartości. Jeżeli tak, to predykcja zostaje uznana za prawidłową. Wydaje się, że jest to znacznie lepsza metoda, niż podział danych na uczące i testowe w stosunku 80/20 (który zaproponowali autorzy danych).
+W celu sprawdzenia jakości zastosowanych metod wykonaliśmy wiele testów. Główna idea naszych testów to iteracja po wszystkich danych z paczki MovieLens i usuwanie po kolei pojedynczych ocen. Za każdym razem uzyskane w ten sposób dane traktujemy jakby były to zupełne nowe dane i sprawdzamy predykcję brakującej oceny. Sprawdzamy czy nie rożni się ona o więcej niż o 0,5 od prawidłowej wartości (czyli zaokrąglamy wynik uzyskany przez algorytm i sprawdzamy czy jest taki sam jak oryginalny). Jeżeli tak, to predykcja zostaje uznana za prawidłową. Wydaje się, że jest to znacznie lepsza metoda, niż podział danych na uczące i testowe w stosunku 80/20 (który zaproponowali autorzy danych).
 
 Minusem tego rozwiązania jest to, że trzeba 100 tys. razy uruchomić algorytm. W przypadku Slope One nie trzeba wszystkiego liczyć od nowa, dlatego w czasie mniejszym niż 30 minut jesteśmy w stanie sprawdzić cały zbiór danych. W przypadku SVD za każdym razem trzeba dokonać dekompozycji całej macierzy i jest to proces zbyt czasochłonny. Istnieją algorytmy pozwalające dodać nowy wiersz lub kolumnę bez przeliczania całej macierzy, lecz przydatne jest to przy np. wprowadzaniu nowych użytkowników do bazy, a w naszym przypadku chcemy usunąć jeden element, a nie coś dodać. Proponujemy zatem dwa rozwiązania:
 
@@ -77,7 +77,7 @@ Przykład użycia znajduje się w pliku źródłowym src/s1.py.
 
 #5. Wyniki
 
-Wyniki poszczególnych testów:
+Wyniki testów:
 
 i. 41,6% (Slope One)
 
@@ -88,6 +88,13 @@ iii. 40,6% (SVD grupami)
 iv. 43,0% (Slope One + SVD)
 
 W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
+
+Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej. Oto wyniki:
+
+i. (waitinig for results)
+ii. (waiting for results)
+iii. -
+iv. 90,2% (Slope One + SVD)
 
 #6. Podsumowanie
 
