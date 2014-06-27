@@ -89,6 +89,7 @@ iv. 43,0% (Slope One + SVD)
 
 
 
+
 Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej. Oto wyniki:
 
 i. 89,7% (Slope One)
@@ -98,6 +99,7 @@ ii. 89,3% (SVD)
 iii. -
 
 iv. 90,2% (Slope One + SVD)
+
 
 
 
