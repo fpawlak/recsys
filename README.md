@@ -89,9 +89,10 @@ iv. 43,0% (Slope One + SVD)
 
 
 
+## 5.2 Wyniki testów dla mniej dokładnych predykcji:
+
 Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej.
 
-## 5.2 Wyniki testów dla mniej dokładnych predykcji:
 
 i. 89,7% (Slope One)
 
