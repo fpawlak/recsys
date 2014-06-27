@@ -87,7 +87,7 @@ iii. 40,6% (SVD grupami)
 
 iv. 43,0% (Slope One + SVD)
 
-W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
+
 
 Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej. Oto wyniki:
 
@@ -99,6 +99,9 @@ iii. -
 
 iv. 90,2% (Slope One + SVD)
 
+
+
+W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
 #6. Podsumowanie
 
