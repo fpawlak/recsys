@@ -77,7 +77,7 @@ Przykład użycia znajduje się w pliku źródłowym src/s1.py.
 
 #5. Wyniki
 
-Wyniki testów:
+## 5.1 Wyniki testów dla dokładnych predykcji:
 
 i. 41,6% (Slope One)
 
@@ -89,8 +89,9 @@ iv. 43,0% (Slope One + SVD)
 
 
 
+Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej.
 
-Zostały również przeprowadzone analogiczne testy, ale sprawdzające czy przewidywana przez algorytm wartość nie różni się o więcej niż 1 od oryginalnej. Oto wyniki:
+## 5.2 Wyniki testów dla predykcji odstających maksymalnie 1:
 
 i. 89,7% (Slope One)
 
@@ -102,7 +103,7 @@ iv. 90,2% (Slope One + SVD)
 
 
 
-
+## 5.3 Dodatkowa informacja:
 W katalogu /src/results/ znajdują się również wyniki pośrednie dla testów ii-iv (zapisywane po sprawdzeniu np. każdej setki próbek).
 
 #6. Podsumowanie
